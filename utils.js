@@ -26,14 +26,39 @@ const debounce = (func) => {
     }
 }
 
-const createMovieElem = (title, year, img) => {
-    const div = document.createElement("div")
-    div.className = "movieDiv"
-    const movieInfo = `
-    <p>Movie Title: ${title} (${year})</p>
-    <img src=${img} style="height: 200px;"/>
-    `
-    div.innerHTML = movieInfo
+const createAutocomplete = () => {
+    // creating the HTML for the dropdown menu
 
-    return div
+    const container = document.getElementsByClassName("autocomplete")[0]
+
+    const dropdownContent = document.createElement("div")
+    dropdownContent.className = "dropdown-content results"
+    
+    const dropdownMenu = document.createElement("div")
+    dropdownMenu.className = "dropdown-menu"
+    dropdownMenu.appendChild(dropdownContent)
+
+    const inputField = document.createElement("input")
+    inputField.id = "search-input"
+    
+    const dropdownWrapper = document.createElement("div")
+    dropdownWrapper.className = "dropdown"
+    dropdownWrapper.appendChild(inputField)
+    dropdownWrapper.appendChild(dropdownMenu)
+
+    container.appendChild(dropdownWrapper)
+}
+
+const createMovieElem = (title, year, img) => {
+    // creating the HTML for one movie element of the dropdown menu
+
+    const menuElem = document.createElement("a")
+    menuElem.className = "dropdown-item"
+    const movieInfo = `
+        <img src=${img} />
+        <p>${title} (${year})</p>
+    `
+    menuElem.innerHTML = movieInfo
+
+    return menuElem
 }
