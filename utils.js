@@ -29,24 +29,16 @@ const debounce = (func) => {
 const createAutocomplete = () => {
     // creating the HTML for the dropdown menu
 
-    const container = document.getElementsByClassName("autocomplete")[0]
-
-    const dropdownContent = document.createElement("div")
-    dropdownContent.className = "dropdown-content results"
-    
-    const dropdownMenu = document.createElement("div")
-    dropdownMenu.className = "dropdown-menu"
-    dropdownMenu.appendChild(dropdownContent)
-
-    const inputField = document.createElement("input")
-    inputField.id = "search-input"
-    
-    const dropdownWrapper = document.createElement("div")
-    dropdownWrapper.className = "dropdown"
-    dropdownWrapper.appendChild(inputField)
-    dropdownWrapper.appendChild(dropdownMenu)
-
-    container.appendChild(dropdownWrapper)
+    const container = document.querySelector(".autocomplete")
+    container.innerHTML = `
+        <label><b>Search For a Movie</b></label>
+        <input class="input"/>
+        <div class="dropdown">  
+            <div class="dropdown-menu">
+                <div class="dropdown-content results"></div>
+            </div>
+        </div>
+    `
 }
 
 const createMovieElem = (title, year, img) => {
@@ -54,11 +46,16 @@ const createMovieElem = (title, year, img) => {
 
     const menuElem = document.createElement("a")
     menuElem.className = "dropdown-item"
+    const imgSrc = img === "N/A" ? "" : img;
     const movieInfo = `
-        <img src=${img} />
+        <img src="${imgSrc}" />
         <p>${title} (${year})</p>
     `
     menuElem.innerHTML = movieInfo
 
     return menuElem
+}
+
+const onMovieSelect = () => {
+    
 }
