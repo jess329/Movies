@@ -1,9 +1,11 @@
 createAutocomplete()
-const container = document.querySelector(".autocomplete")
+const autocomplete = document.querySelector(".autocomplete")
 const dropdown = document.querySelector(".dropdown")
 const menuContainer = document.querySelector(".dropdown-content")
 const inputElem = document.querySelector("input")
 const resultsWrapper = document.querySelector(".results")
+// const movieInfo = document.querySelector(".movieInfo")
+
 
 let timeoutId;
 
@@ -32,7 +34,7 @@ const onInput = async event => {
 inputElem.addEventListener("input", debounce(onInput)) 
 
 document.addEventListener("click", event => {
-    if(!container.contains(event.target)) {
+    if(!autocomplete.contains(event.target)) {
         dropdown.className = "dropdown"
     }
 })

@@ -1,3 +1,4 @@
+const container = document.querySelector(".autocomplete")
 const apikey = "989e5d5"
 
 const fetchData = async (input) => {
@@ -29,7 +30,6 @@ const debounce = (func) => {
 const createAutocomplete = () => {
     // creating the HTML for the dropdown menu
 
-    const container = document.querySelector(".autocomplete")
     container.innerHTML = `
         <label><b>Search For a Movie</b></label>
         <input class="input"/>
@@ -56,6 +56,34 @@ const createMovieElem = (title, year, img) => {
     return menuElem
 }
 
-const onMovieSelect = () => {
-    
+const onMovieSelect = async (movie) => {
+    const movieData = await axios.get("http://www.omdbapi.com/", {
+        params: {
+            apikey: apikey,
+            i: movie.imdbID
+        }
+    })
+    console.log(movieData.data);
+    movieTemplate(movieData.data)
+}
+
+const movieTemplate = (movie) => {
+    const summary = document.querySelector(".summary")
+
+    summary.innerHTML = `
+        <article class="media">
+            <figure class="media-left">
+                <p class="image">
+                    <img src="${movie.Poster}" />
+                </p>
+            </figure>
+            <div class="media-content">
+                <div class="content">
+                    <h1>${movie.Title}</h1>
+                    <h4>${movie.Genre}</h4>
+                    <p>${movie.Plot}</p>
+                </div>
+            </div>
+        </article>
+    ` 
 }
