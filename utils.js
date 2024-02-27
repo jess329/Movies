@@ -1,4 +1,3 @@
-const container = document.querySelector(".autocomplete")
 const apikey = "989e5d5"
 
 const fetchData = async (input) => {
@@ -11,7 +10,7 @@ const fetchData = async (input) => {
     if(response.data.Error) {
         console.log(response.data.Error);
     }
-
+    
     return response.data.Search
 }
 
@@ -25,20 +24,6 @@ const debounce = (func) => {
             func.apply(null, args)
         }, 1000)
     }
-}
-
-const createAutocomplete = () => {
-    // creating the HTML for the dropdown menu
-
-    container.innerHTML = `
-        <label><b>Search For a Movie</b></label>
-        <input class="input"/>
-        <div class="dropdown">  
-            <div class="dropdown-menu">
-                <div class="dropdown-content results"></div>
-            </div>
-        </div>
-    `
 }
 
 const createMovieElem = (title, year, img) => {
@@ -56,34 +41,54 @@ const createMovieElem = (title, year, img) => {
     return menuElem
 }
 
-const onMovieSelect = async (movie) => {
-    const movieData = await axios.get("http://www.omdbapi.com/", {
+const onOptionSelect = async (movie) => {
+    const objectData = await axios.get("http://www.omdbapi.com/", {
         params: {
             apikey: apikey,
             i: movie.imdbID
         }
     })
-    console.log(movieData.data);
-    movieTemplate(movieData.data)
+    console.log(objectData.data);
+    infoTemplate(objectData.data)
 }
 
-const movieTemplate = (movie) => {
+const infoTemplate = (object) => {
     const summary = document.querySelector(".summary")
 
     summary.innerHTML = `
         <article class="media">
             <figure class="media-left">
                 <p class="image">
-                    <img src="${movie.Poster}" />
+                    <img src="${object.Poster}" />
                 </p>
             </figure>
             <div class="media-content">
                 <div class="content">
-                    <h1>${movie.Title}</h1>
-                    <h4>${movie.Genre}</h4>
-                    <p>${movie.Plot}</p>
+                    <h1>${object.Title}</h1>
+                    <h4>${object.Genre}</h4>
+                    <p>${object.Plot}</p>
                 </div>
             </div>
+        </article>
+        <article class="notification is-primary">
+            <p class="title">${object.Awards}</p>
+            <p class="subtitle">Awards</p>
+        </article>
+        <article class="notification is-primary">
+            <p class="title">${object.BoxOffice}</p>
+            <p class="subtitle">Revenue</p>
+        </article>
+        <article class="notification is-primary">
+            <p class="title">${object.Metascore}</p>
+            <p class="subtitle">Metascore</p>
+        </article>
+        <article class="notification is-primary">
+            <p class="title">${object.imdbRating}</p>
+            <p class="subtitle">IMDB Rating</p>
+        </article>
+        <article class="notification is-primary">
+            <p class="title">${object.imdbVotes}</p>
+            <p class="subtitle">IMDB Votes</p>
         </article>
     ` 
 }
