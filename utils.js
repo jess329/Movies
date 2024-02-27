@@ -4,7 +4,7 @@ let leftMovie;
 let rightMovie;
 
 const fetchData = async (input) => {
-    const response = await axios.get("http://www.omdbapi.com/", {
+    const response = await axios.get("https://www.omdbapi.com/", {
         params: {
             apikey: apikey,
             s: input
@@ -69,7 +69,7 @@ const runComparison = () => {
 const onOptionSelect = async (movie, input, summary, side) => {
     input.value = movie.Title
     document.querySelector(".tutorial").classList.add("is-hidden")
-    const objectData = await axios.get("http://www.omdbapi.com/", {
+    const objectData = await axios.get("https://www.omdbapi.com/", {
         params: {
             apikey: apikey,
             i: movie.imdbID
