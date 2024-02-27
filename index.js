@@ -1,5 +1,10 @@
 
-createAutocomplete({root: document.querySelector(".widget-1")})
-createAutocomplete({root: document.querySelector(".widget-2")})
-
+createAutocomplete({
+    root: document.querySelector(".left-autocomplete"), 
+    summary: document.querySelector(".left-summary")
+})
+createAutocomplete({
+    root: document.querySelector(".right-autocomplete"),
+    summary: document.querySelector(".right-summary")
+})
 

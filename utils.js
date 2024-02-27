@@ -41,7 +41,9 @@ const createMovieElem = (title, year, img) => {
     return menuElem
 }
 
-const onOptionSelect = async (movie) => {
+const onOptionSelect = async (movie, input, summary) => {
+    input.value = movie.Title
+    document.querySelector(".tutorial").classList.add("is-hidden")
     const objectData = await axios.get("http://www.omdbapi.com/", {
         params: {
             apikey: apikey,
@@ -49,11 +51,11 @@ const onOptionSelect = async (movie) => {
         }
     })
     console.log(objectData.data);
-    infoTemplate(objectData.data)
+    infoTemplate(objectData.data, summary)
 }
 
-const infoTemplate = (object) => {
-    const summary = document.querySelector(".summary")
+const infoTemplate = (object, summary) => {
+    // const summary = document.querySelector(".summary")
 
     summary.innerHTML = `
         <article class="media">
