@@ -1,4 +1,4 @@
-const createAutocomplete = ({ root, summary }) => {
+const createAutocomplete = ({ root, summary, side }) => {
     // creating the HTML for the dropdown menu inside of the deconstructed element root
     root.innerHTML = `
         <label><b>Search For a Movie</b></label>
@@ -33,7 +33,7 @@ const createAutocomplete = ({ root, summary }) => {
             option.addEventListener("click", event => {
                 // remove the dropdown menu when one option is clicked and show the info for that object
                 dropdown.classList.remove("is-active")
-                onOptionSelect(object, input, summary)
+                onOptionSelect(object, input, summary, side)
             })
 
             resultsWrapper.appendChild(option)
